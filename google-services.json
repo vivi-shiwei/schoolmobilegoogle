@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "404097902962",
+    "firebase_url": "https://schoolmobile-a8a04.firebaseio.com",
+    "project_id": "schoolmobile-a8a04",
+    "storage_bucket": "schoolmobile-a8a04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404097902962:android:1c9c8ac86d5936e02a95eb",
+        "android_client_info": {
+          "package_name": "om.region.schoolmobilephone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404097902962-quufj5t480gmgr9e9r0brvovankauun0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "om.region.schoolmobilephone",
+            "certificate_hash": "344670b8066996d8de8f11a1151d1319f2807c36"
+          }
+        },
+        {
+          "client_id": "404097902962-ddi1nnhvr1mjneqsami2brh0b60agair.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_s0Akpq2MHrkd8od-pDuCJrcw1MoA-gA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404097902962-ddi1nnhvr1mjneqsami2brh0b60agair.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
