@@ -69,7 +69,7 @@ const App = () => {
 
   return (
     <>
-      <TextInput
+      {/* <TextInput
         style={{
           height: 40,
           borderColor: 'gray',
@@ -79,7 +79,7 @@ const App = () => {
           marginRight: 40,
         }}
         value={expoPushToken}
-      />
+      /> */}
       <View style={styles.container}>
         {!isNetInfo && (<NetworkTip />)}
         {isNetInfo && (
