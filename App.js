@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { SafeAreaView, ActivityIndicator, StyleSheet, Text, View, Alert, TextInput } from 'react-native'
+import { SafeAreaView, ActivityIndicator, StyleSheet, Text, View, Alert, TextInput, Platform } from 'react-native'
 import Constants from 'expo-constants'
+import * as Notifications from 'expo-notifications'
+import * as Permissions from 'expo-permissions'
 import NetInfo, { useNetInfo } from '@react-native-community/netinfo'
 import * as Linking from 'expo-linking'
 import { WebView } from 'react-native-webview'
@@ -24,8 +26,8 @@ const App = () => {
   const [isNetInfo, setIsNetInfo] = useState(null)
   useEffect(() => {
     setStatus('loading')
-
     const getData = async () => {
+      await AsyncStorage.setItem('token', await registerForPushNotificationsAsync())
       const data = await getAsyncStorage()
       let result = 'logout'
       if (!!data.session && !!data.sessionSig) {
@@ -69,17 +71,6 @@ const App = () => {
 
   return (
     <>
-      {/* <TextInput
-        style={{
-          height: 40,
-          borderColor: 'gray',
-          borderWidth: 1,
-          marginTop: 40,
-          marginLeft: 40,
-          marginRight: 40,
-        }}
-        value={expoPushToken}
-      /> */}
       <View style={styles.container}>
         {!isNetInfo && (<NetworkTip />)}
         {isNetInfo && (
@@ -158,6 +149,36 @@ const NetworkTip = () => {
     </View>
 
   )
+}
+
+const registerForPushNotificationsAsync = async () => {
+  let token;
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+    let finalStatus = existingStatus
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!')
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications')
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C'
+    })
+  }
+  return token
 }
 
 
